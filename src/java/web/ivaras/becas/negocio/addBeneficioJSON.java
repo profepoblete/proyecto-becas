@@ -13,18 +13,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import web.ivaras.becas.datos.DAOSolicitud;
+import web.ivaras.becas.datos.DAOBeneficio;
+import web.ivaras.becas.entidades.Beneficio;
 import web.ivaras.becas.entidades.Respuesta;
-import web.ivaras.becas.entidades.Solicitud;
-import web.ivaras.becas.util.Letter;
-import web.ivaras.becas.util.Postman;
 
 /**
  *
  * @author cesar
  */
-@WebServlet(name = "updSolicitudFinanciamientoJSON", urlPatterns = {"/updSolicitudFinanciamientoJSON"})
-public class updSolicitudFinanciamientoJSON extends HttpServlet {
+@WebServlet(name = "addBeneficioJSON", urlPatterns = {"/addBeneficioJSON"})
+public class addBeneficioJSON extends HttpServlet {
     private Gson gson = new Gson();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,7 +33,7 @@ public class updSolicitudFinanciamientoJSON extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
+   
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -62,30 +60,19 @@ public class updSolicitudFinanciamientoJSON extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Letter letter = new Letter();
-        Solicitud sol = new Solicitud();
-        DAOSolicitud datSol = new DAOSolicitud();
+        Beneficio ben = new Beneficio();
+        DAOBeneficio dBeneficio = new DAOBeneficio();
         Respuesta resp = new Respuesta();
-        sol = datSol.buscarPorId(Integer.parseInt(request.getParameter("idsolicitud")));
-        
-        sol.setId_estado(Integer.parseInt(request.getParameter("idestado")));
-        sol.setEstado(request.getParameter("estado"));
-        sol.setId_porcentaje(Integer.parseInt(request.getParameter("porcentaje")));
-        sol.setMonto_beneficio(Integer.parseInt(request.getParameter("monto")));
-        if(datSol.modificar(sol)==1)
+        String nombre = request.getParameter("nombreBeneficio");
+        int idTipoBeneficio = Integer.parseInt(request.getParameter("idTipoBeneficio"));
+        ben.setNombre(nombre);
+        ben.setId_tipo_beneficio(idTipoBeneficio);
+        ben.setVigente(true);
+        if(dBeneficio.agregar(ben)==1)
         {
-                letter.emailTo = request.getParameter("email");
-                letter.text = "Formulario en estado " + sol.getEstado();
-                letter.name = request.getParameter("nombre");
-                boolean sendCorrect = Postman.send(letter);
-                if (sendCorrect) {
-                    System.out.println(">>> Envio de correo notificacion correcto");
-                } else {
-                    System.out.println(">>> Error, no se pudo enviar el correo de notificacion");
-                }
             resp.setCodigo(1);
             resp.setSuccess(1);
-            resp.setMensaje("Solicitud modificada con éxito");
+            resp.setMensaje("Beneficio creado con éxito");
         }
         else
         {
@@ -99,6 +86,7 @@ public class updSolicitudFinanciamientoJSON extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         out.print(respJsonString);
+        
     }
 
     /**

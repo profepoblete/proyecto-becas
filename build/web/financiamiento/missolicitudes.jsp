@@ -10,7 +10,7 @@
         <title>Becas - Financiamiento</title>
         <link href="../admin/css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
-        <link rel="icon" type="image/x-icon" href="../admin/assets/img/favicon.png" />
+        <link rel="icon" type="image/x-icon" href="../img/favicon.png" />
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
     </head>
@@ -46,6 +46,7 @@
                                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
+                                                    <th>Rut Alumno</th>
                                                     <th>Nombre alumno</th>
                                                     <th>Carrera</th>
                                                     <th>Solicitud</th>
@@ -58,6 +59,7 @@
                                             </thead>
                                             <tfoot>
                                                 <tr>
+                                                    <th>Rut Alumno</th>
                                                     <th>Nombre alumno</th>
                                                     <th>Carrera</th>
                                                     <th>Solicitud</th>
@@ -71,6 +73,7 @@
                                             <tbody>
                                                 <j:forEach items="${listaSolicitudes}" var="s">
                                                     <tr id="${s.getId_formulario()}">
+                                                        <td>${s.getRut_alumno()}</td>
                                                         <td>${s.getAlumno()}v</td>
                                                         <td>${s.getCarrera()}</td>
                                                         <td>${s.getTipo_solicitud()}</td>

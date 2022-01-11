@@ -16,11 +16,11 @@ import web.ivaras.becas.util.iCRUD;
  * @author cesar
  */
 public class DAOSolicitud implements iCRUD<Solicitud> {
-    private final String sql_selectAll = "SELECT s.id_formulario, s.fecha_solicitud, s.anio_ingreso, s.semestre, s.anio_egreso, s.r2_hermano, s.r3_hermano, s.fecha_update, s.archivo, s.nombre_archivo, s.id_alumno,u.nombre_completo as alumno, s.id_estado, e.estado as estado, s.id_tipo_solicitud, ts.tipo_solicitud as tipo_solicitud, s.id_funcionario, u2.nombre_completo as funcionario, s.id_porcentaje, p.descripcion as porcentaje, s.id_beneficio, b.nombre as beneficio, s.monto_beneficio, s.id_carrera, c.descripcion as carrera FROM solicitud s left join usuario u ON u.id_usuario = s.id_alumno left join usuario u2 ON u2.id_usuario = s.id_funcionario left join tipo_solicitud ts ON ts.id_tipo_solicitud = s.id_tipo_solicitud left join estado e ON e.id_estado = s.id_estado left join beneficio b ON b.id_beneficio = s.id_beneficio left join porcentaje p on p.id_porcentaje = s.id_porcentaje left join carrera c on s.id_carrera = c.id_carrera";
+    private final String sql_selectAll = "SELECT s.id_formulario, s.fecha_solicitud, s.anio_ingreso, s.semestre, s.anio_egreso, s.r2_hermano, s.r3_hermano, s.fecha_update, s.archivo, s.nombre_archivo, s.id_alumno,u.nombre_completo as alumno, s.id_estado, e.estado as estado, s.id_tipo_solicitud, ts.tipo_solicitud as tipo_solicitud, s.id_funcionario, u2.nombre_completo as funcionario, s.id_porcentaje, p.descripcion as porcentaje, s.id_beneficio, b.nombre as beneficio, s.monto_beneficio, s.id_carrera, c.descripcion as carrera, u.rut as rut_alumno FROM solicitud s left join usuario u ON u.id_usuario = s.id_alumno left join usuario u2 ON u2.id_usuario = s.id_funcionario left join tipo_solicitud ts ON ts.id_tipo_solicitud = s.id_tipo_solicitud left join estado e ON e.id_estado = s.id_estado left join beneficio b ON b.id_beneficio = s.id_beneficio left join porcentaje p on p.id_porcentaje = s.id_porcentaje left join carrera c on s.id_carrera = c.id_carrera";
     //private final String sql_selectAllByTipo = "SELECT id_porcentaje, descripcion, vigente, porcentaje, id_beneficio FROM porcentaje where id_beneficio = ?";
     private final String sql_insert = "INSERT INTO solicitud(fecha_solicitud,anio_ingreso,semestre,anio_egreso,r2_hermano,r3_hermano,fecha_update,archivo,nombre_archivo,id_alumno,id_estado,id_tipo_solicitud,id_funcionario,id_porcentaje,id_beneficio,monto_beneficio,id_carrera) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final String sql_delete = "DELETE FROM solicitud WHERE id_formulario = ?";
-    private final String sql_selectById = "SELECT s.id_formulario, s.fecha_solicitud, s.anio_ingreso, s.semestre, s.anio_egreso, s.r2_hermano, s.r3_hermano, s.fecha_update, s.archivo, s.nombre_archivo, s.id_alumno,u.nombre_completo as alumno, s.id_estado, e.estado as estado, s.id_tipo_solicitud, ts.tipo_solicitud as tipo_solicitud, s.id_funcionario, u2.nombre_completo as funcionario, s.id_porcentaje, p.descripcion as porcentaje, s.id_beneficio, b.nombre as beneficio, s.monto_beneficio, s.id_carrera, c.descripcion as carrera FROM solicitud s left join usuario u ON u.id_usuario = s.id_alumno left join usuario u2 ON u2.id_usuario = s.id_funcionario left join tipo_solicitud ts ON ts.id_tipo_solicitud = s.id_tipo_solicitud left join estado e ON e.id_estado = s.id_estado left join beneficio b ON b.id_beneficio = s.id_beneficio left join porcentaje p on p.id_porcentaje = s.id_porcentaje left join carrera c on s.id_carrera = c.id_carrera where s.id_formulario=?";
+    private final String sql_selectById = "SELECT s.id_formulario, s.fecha_solicitud, s.anio_ingreso, s.semestre, s.anio_egreso, s.r2_hermano, s.r3_hermano, s.fecha_update, s.archivo, s.nombre_archivo, s.id_alumno,u.nombre_completo as alumno, s.id_estado, e.estado as estado, s.id_tipo_solicitud, ts.tipo_solicitud as tipo_solicitud, s.id_funcionario, u2.nombre_completo as funcionario, s.id_porcentaje, p.descripcion as porcentaje, s.id_beneficio, b.nombre as beneficio, s.monto_beneficio, s.id_carrera, c.descripcion as carrera, u.rut as rut_alumno FROM solicitud s left join usuario u ON u.id_usuario = s.id_alumno left join usuario u2 ON u2.id_usuario = s.id_funcionario left join tipo_solicitud ts ON ts.id_tipo_solicitud = s.id_tipo_solicitud left join estado e ON e.id_estado = s.id_estado left join beneficio b ON b.id_beneficio = s.id_beneficio left join porcentaje p on p.id_porcentaje = s.id_porcentaje left join carrera c on s.id_carrera = c.id_carrera where s.id_formulario=?";
     private final String sql_update = "UPDATE solicitud SET fecha_solicitud = ?,anio_ingreso = ?,semestre = ?,anio_egreso = ?,r2_hermano = ?,r3_hermano = ?,fecha_update = ?,archivo = ?,nombre_archivo = ?,id_alumno = ?,id_estado = ?,id_tipo_solicitud = ?,id_funcionario = ?,id_porcentaje = ?,id_beneficio = ?,monto_beneficio = ?,id_carrera = ? WHERE id_formulario = ?";
     private static Conexion objConn;
     private ResultSet rs;
@@ -64,6 +64,7 @@ public class DAOSolicitud implements iCRUD<Solicitud> {
                 sol.setMonto_beneficio(rs.getInt("monto_beneficio"));
                 sol.setId_carrera(rs.getInt("id_carrera"));
                 sol.setCarrera(rs.getString("carrera"));
+                sol.setRut_alumno(rs.getString("rut_alumno"));
                 lista.add(sol);
             }
             return lista;
@@ -140,6 +141,7 @@ public class DAOSolicitud implements iCRUD<Solicitud> {
                 o.setMonto_beneficio(rs.getInt("monto_beneficio"));
                 o.setId_carrera(rs.getInt("id_carrera"));
                 o.setCarrera(rs.getString("carrera"));
+                o.setRut_alumno(rs.getString("rut_alumno"));
             }
             return o;
         } catch (SQLException ex) {

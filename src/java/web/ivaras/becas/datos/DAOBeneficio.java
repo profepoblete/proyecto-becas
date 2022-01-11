@@ -17,8 +17,8 @@ import web.ivaras.becas.util.iCRUD;
  * @author cesar
  */
 public class DAOBeneficio implements iCRUD<Beneficio> {
-    private final String sql_selectAll = "SELECT id_beneficio, beneficio.nombre, id_tipo_beneficio, tb.nombre as tipo_beneficio, vigente FROM beneficio left join tipo_beneficio tb on (beneficio.id_tipo_beneficio = tb.id_tipo)";
-    private final String sql_selectAllByTipo = "SELECT id_beneficio, beneficio.nombre, id_tipo_beneficio, tb.nombre as tipo_beneficio, vigente FROM beneficio left join tipo_beneficio tb on (beneficio.id_tipo_beneficio = tb.id_tipo) where beneficio.id_tipo_beneficio=?";
+    private final String sql_selectAll = "SELECT id_beneficio, beneficio.nombre, id_tipo_beneficio, tb.nombre as tipo_beneficio, vigente FROM beneficio left join tipo_beneficio tb on (beneficio.id_tipo_beneficio = tb.id_tipo) where beneficio.vigente = 1 order by beneficio.id_beneficio";
+    private final String sql_selectAllByTipo = "SELECT id_beneficio, beneficio.nombre, id_tipo_beneficio, tb.nombre as tipo_beneficio, vigente FROM beneficio left join tipo_beneficio tb on (beneficio.id_tipo_beneficio = tb.id_tipo) where beneficio.id_tipo_beneficio=? and beneficio.vigente = 1 order by beneficio.id_beneficio";
     private final String sql_insert = "INSERT INTO beneficio(nombre,id_tipo_beneficio,vigente) VALUES (?,?,?)";
     private final String sql_delete = "DELETE FROM beneficio WHERE id_beneficio = ?";
     private final String sql_selectById = "SELECT * FROM beneficio WHERE id_beneficio = ?";

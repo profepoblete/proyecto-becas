@@ -39,13 +39,14 @@ public class Solicitud {
     private int monto_beneficio;
     private int id_carrera;
     private String carrera;
+    private String rut_alumno;
     
 
 
     public Solicitud() {
     }
 
-    public Solicitud(int id_formulario, Date fecha_solicitud, int anio_ingreso, int semestre, int anio_egreso, String r2_hermano, String r3_hermano, Date fecha_update, InputStream archivo, String nombre_archivo, int id_alumno, String alumno, int id_estado, String estado, int id_tipo_solicitud, String tipo_solicitud, int id_funcionario, String funcionario, int id_porcentaje, String porcentahe, int id_beneficio, String beneficio, int monto_beneficio, int id_carrera, String carrera) {
+    public Solicitud(int id_formulario, Date fecha_solicitud, int anio_ingreso, int semestre, int anio_egreso, String r2_hermano, String r3_hermano, Date fecha_update, InputStream archivo, String nombre_archivo, int id_alumno, String alumno, int id_estado, String estado, int id_tipo_solicitud, String tipo_solicitud, int id_funcionario, String funcionario, int id_porcentaje, String porcentahe, int id_beneficio, String beneficio, int monto_beneficio, int id_carrera, String carrera, String rut_alumno) {
         this.id_formulario = id_formulario;
         this.fecha_solicitud = fecha_solicitud;
         this.anio_ingreso = anio_ingreso;
@@ -71,6 +72,7 @@ public class Solicitud {
         this.monto_beneficio = monto_beneficio;
         this.id_carrera = id_carrera;
         this.carrera = carrera;
+        this.rut_alumno = rut_alumno;
     }
 
     public byte[] getArchivo_bytes() {
@@ -280,6 +282,14 @@ public class Solicitud {
 
     public void setCarrera(String carrera) {
         this.carrera = carrera;
+    }
+
+    public String getRut_alumno() {
+        return rut_alumno;
+    }
+
+    public void setRut_alumno(String rut_alumno) {
+        this.rut_alumno = rut_alumno;
     }
     
     

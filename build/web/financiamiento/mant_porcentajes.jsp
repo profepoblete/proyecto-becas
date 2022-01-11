@@ -28,7 +28,7 @@
                             <div class="page-header-content">
                                 <h1 class="page-header-title">
                                     <div class="page-header-icon"><i data-feather="activity"></i></div>
-                                    <span>Solicitudes</span>
+                                    <span>Mantenedor de porcentajes</span>
                                 </h1>
                                 <div class="page-header-subtitle"></div>
                             </div>
@@ -36,62 +36,7 @@
                     </div>
                     <div class="container-fluid mt-n10">
                         <div class="row">
-                            <div class="card mb-4">
-                                <div class="card-header">Lista de Solicitudes</div>
-                                <div class="card-body">
-                                    <div id="divAlerts">
-                                        
-                                    </div>
-                                    <div class="datatable table-responsive">
-                                        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Rut Alumno</th>
-                                                    <th>Nombre alumno</th>
-                                                    <th>Carrera</th>
-                                                    <th>Solicitud</th>
-                                                    <th>Beneficio Solicitado</th>
-                                                    <th>Fecha Solicitud</th>
-                                                    <th>Fecha Modificada</th>
-                                                    <th>Estado</th>
-                                                    <th>Accion</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Rut Alumno</th>
-                                                    <th>Nombre alumno</th>
-                                                    <th>Carrera</th>
-                                                    <th>Solicitud</th>
-                                                    <th>Beneficio Solicitado</th>
-                                                    <th>Fecha Solicitud</th>
-                                                    <th>Fecha Modificada</th>
-                                                    <th>Estado</th>
-                                                    <th>Accion</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tbody>
-                                                <j:forEach items="${listaSolicitudes}" var="s">
-                                                    <tr id="${s.getId_formulario()}">
-                                                        <td>${s.getRut_alumno()}</td>
-                                                        <td>${s.getAlumno()}v</td>
-                                                        <td>${s.getCarrera()}</td>
-                                                        <td>${s.getTipo_solicitud()}</td>
-                                                        <td>${s.getBeneficio()}</td>
-                                                        <td>${s.getFecha_solicitud()}</td>
-                                                        <td>${s.getFecha_update()}</td>
-                                                        <td><div class="badge badge-primary badge-pill">${s.getEstado()}</div></td>
-                                                        <td>
-                                                            <a class="btn btn-datatable btn-icon btn-transparent-dark mr-2" href="../GetArchivo?id=${s.getId_formulario()}"><i data-feather="download"></i></a>
-                                                            <button class="btn btn-datatable btn-icon btn-transparent-dark mr-2" onclick="editSolicitud(${s.getId_formulario()});"><i data-feather="edit"></i></button>
-                                                        </td>
-                                                    </tr>
-                                                </j:forEach>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                            Mant Porcentajes
                         </div>
                     </div>
                 </main>
@@ -174,4 +119,3 @@
         <script src="utiles.js"></script>
     </body>
 </html>
-

@@ -11,7 +11,7 @@
                             <div class="collapse" id="collapseLayouts" data-parent="#accordionSidenav">
                                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavLayout">
                                     <a class="nav-link" href="solicitud.jsp">Solicitud Alumno</a>
-                                    <a class="nav-link" href="missolicitudes.jsp">Gestionar Solicitudes</a>
+                                    <a class="nav-link" href="gest_solicitudes.jsp">Gestionar Solicitudes</a>
                                     
                                     
                                 </nav>
@@ -23,8 +23,8 @@
                             ></a>
                             <div class="collapse" id="collapseComponents" data-parent="#accordionSidenav">
                                 <nav class="sidenav-menu-nested nav">
-                                    <a class="nav-link" href="alerts.html">Beneficios</a>
-                                    <a class="nav-link" href="badges.html">Aranceles</a>
+                                    <a class="nav-link" href="mant_beneficios.jsp">Beneficios</a>
+                                    <a class="nav-link" href="mant_aranceles.jsp">Aranceles</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities"
