@@ -16,17 +16,19 @@ public class Arancel {
     private int annio_ingreso;
     private int id_semestre;
     private int id_carrera;
+    private String carrera;
 
     public Arancel() {
     }
 
-    public Arancel(int id_arancel, int valor_matricula, int valor_arancel, int annio_ingreso, int id_semestre, int id_carrera) {
+    public Arancel(int id_arancel, int valor_matricula, int valor_arancel, int annio_ingreso, int id_semestre, int id_carrera, String carrera) {
         this.id_arancel = id_arancel;
         this.valor_matricula = valor_matricula;
         this.valor_arancel = valor_arancel;
         this.annio_ingreso = annio_ingreso;
         this.id_semestre = id_semestre;
         this.id_carrera = id_carrera;
+        this.carrera = carrera;
     }
 
     public int getId_arancel() {
@@ -75,6 +77,14 @@ public class Arancel {
 
     public void setId_carrera(int id_carrera) {
         this.id_carrera = id_carrera;
+    }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
     }
     
 }

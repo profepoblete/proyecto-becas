@@ -18,9 +18,8 @@
         <%@include file="menu.jsp"%>
         <div id="layoutSidenav">
             <%@include file="sidenav.jsp"  %>
-            <jsp:include page="/listaTipoSolicitud" flush="true"/>
-            <jsp:include page="/listaTipoBeneficio" flush="true"/>
-            <jsp:include page="/listaSolicitudesFinanzas" flush="true"/>
+            
+            <jsp:include page="/listaArancelesMant" flush="true"/>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
@@ -36,7 +35,70 @@
                     </div>
                     <div class="container-fluid mt-n10">
                         <div class="row">
-                            Mant Aranceles
+                            <div class="col-12">
+                            <div class="card card-header-actions mx-auto">
+                                <div class="card-header">
+                                    Lista de Beneficios
+                                    <div>
+                                        
+                                        <button class="btn btn-blue btn-icon" id="btnNuevo" data-toggle="tooltip" data-placement="top" data-original-title="Nuevo Arancel" onclick="nuevoArancel();">
+                                            <i data-feather="plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="divAlerts">
+                                        
+                                    </div>
+                                    <div class="datatable table-responsive">
+                                        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Carrera</th>
+                                                    <th>Año</th>
+                                                    <th>Semestre</th>
+                                                    <th>Valor Matrícula</th>
+                                                    <th>Valor Arancel</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Carrera</th>
+                                                    <th>Año</th>
+                                                    <th>Semestre</th>
+                                                    <th>Valor Matrícula</th>
+                                                    <th>Valor Arancel</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <j:forEach items="${listaArancel}" var="a">
+                                                    <tr id="${a.getId_arancel()}">
+                                                        <td>${a.getCarrera()}</td>
+                                                        <td>${a.getAnnio_ingreso()}</td>
+                                                        <td>${a.getId_semestre()}</td>
+                                                        <td>${a.getValor_matricula()}</td>
+                                                        <td>${a.getValor_arancel()}</td>
+                                                        <td>
+                       
+                                                            <!-- Editar -->
+                                                            <button class="btn btn-datatable btn-icon btn-transparent-dark mr-2" onclick="editBeneficio(${a.getId_arancel()});"  data-toggle="tooltip" data-placement="top" data-original-title="Editar Arancel">
+                                                                <i data-feather="edit"></i>
+                                                            </button>
+                                                            <!-- Deshabilitar -->
+                                                            <button class="btn btn-datatable btn-icon btn-transparent-dark mr-2" onclick="disableBeneficio(${a.getId_arancel()});"  data-toggle="tooltip" data-placement="top" data-original-title="Eliminar Arancel">
+                                                                <i data-feather="x-square"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </j:forEach>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </main>
@@ -45,58 +107,30 @@
 
                     </div>
                 </footer>
-                <!-- Modal -->
-                <div id="modalSolicitud" class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                <!-- Modal Nuevo Beneficio -->
+                <div id="modalNuevoBeneficio" class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Editar Solicitud</h5>
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Nuevo Beneficio</h5>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                             </div>
                             <div class="modal-body">
                                 <form>
                                     <div class="form-group">
-                                        <label for="rut">Rut Alumno:</label>
-                                        <input type="hidden" id="idSolicitud" name="idSolicitud"/>
-                                        <input type="hidden" id="hdnIdAlumno" name="hdnIdAlumno"/>
-                                        <input type="hidden" id="hdnIdAlumno" name="hdnSemestre"/>
-                                        <input type="hidden" id="hdnIdAlumno" name="hdnAnio"/>
-                                        <input class="form-control" id="rut" name="rut" type="text" placeholder="99999999-9" readonly/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nombre">Nombre:</label>
-                                        <input class="form-control" id="nombre" name="nombre" type="text" placeholder="Nombre" readonly/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email:</label>
-                                        <input class="form-control" id="email" name="email" type="email" placeholder="Email" readonly/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="carrera">Carrera:</label>
-                                        <input type="hidden" id="hdnIdCarrera" name="hdnIdCarrera"/>
-                                        <input class="form-control" id="carrera" name="carrera" type="text" placeholder="Carrera" readonly/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="beneficio">Beneficio</label>
-                                        <input type="hidden" id="hdnIdBeneficio" name="hdnIdBeneficio"/>
-                                        <input class="form-control" id="beneficio" name="beneficio" type="text" placeholder="Beneficio" readonly/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="ddlEstado">Estado</label>
-                                        <select class="form-control" id="ddlEstado" name="ddlEstado">
-
+                                        <label for="ddlTipoBeneficio">Tipo Beneficio:</label>
+                                        <select class="form-control" id="ddlTipoBeneficio" name="ddlTipoBeneficio">
+                                            <option value="0">Seleccione Tipo Beneficio</option>
+                                            <j:forEach var="ts" items="${listaTipoBeneficio}">
+                                                <option value="${ts.getId_tipo()}">${ts.getNombre()}</option>
+                                            </j:forEach>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="ddlPorcentaje">Porcentaje:</label>
-                                        <select class="form-control" id="ddlPorcentaje" name="ddlPorcentaje">
-
-                                        </select>
+                                        <label for="nombre">Nombre Beneficio:</label>
+                                        <input class="form-control" id="nombre" name="nombre" type="text" placeholder="Nombre"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="monto">Monto</label>
-                                        <input class="form-control" id="monto" name="monto" type="text" placeholder="Monto" readonly/>
-                                    </div>
+                                    
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -116,6 +150,7 @@
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="../admin/assets/demo/datatables-demo.js"></script>
-        <script src="utiles.js"></script>
+        <script src="util_mant_aranceles.js"></script>
+        
     </body>
 </html>

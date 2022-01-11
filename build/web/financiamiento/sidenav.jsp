@@ -34,7 +34,7 @@
                             ></a>
                             <div class="collapse" id="collapseUtilities" data-parent="#accordionSidenav">
                                 <nav class="sidenav-menu-nested nav">
-                                    <a class="nav-link" href="animations.html">Consolidado Solicitudes</a>
+                                    <a class="nav-link" href="missolicitudes.jsp">Consolidado Solicitudes</a>
                                 </nav>
                             </div>
                         </div>

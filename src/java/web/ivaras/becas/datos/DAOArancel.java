@@ -17,11 +17,11 @@ import web.ivaras.becas.util.iCRUD;
  * @author cesar
  */
 public class DAOArancel implements iCRUD<Arancel> {
-    private final String sql_selectAll = "SELECT id_arancel, valor_matricula, valor_arancel, annio_ingreso, id_semestre, id_carrera FROM arancel";
+    private final String sql_selectAll = "SELECT id_arancel, valor_matricula, valor_arancel, annio_ingreso, id_semestre, arancel.id_carrera id_carrera, descripcion as carrera FROM arancel left join carrera on (arancel.id_carrera = carrera.id_carrera) order by arancel.id_arancel";
     private final String sql_insert = "INSERT INTO arancel (ivalor_matricula, valor_arancel, annio_ingreso, id_semestre, id_carrera) VALUES ( ?, ?, ?, ?, ?)";
     private final String sql_delete = "DELETE FROM arancel WHERE id_arancel = ?";
-    private final String sql_selectById = "SELECT * FROM arancel WHERE id_arancel = ?";
-    private final String sql_selectByAnioSemestre = "SELECT * FROM arancel WHERE id_semestre = ? and annio_ingreso =? and id_carrera=?";
+    private final String sql_selectById = "SELECT id_arancel, valor_matricula, valor_arancel, annio_ingreso, id_semestre, arancel.id_carrera id_carrera, descripcion as carrera FROM arancel left join carrera on (arancel.id_carrera = carrera.id_carrera) WHERE arancel.id_arancel = ?";
+    private final String sql_selectByAnioSemestre = "SELECT id_arancel, valor_matricula, valor_arancel, annio_ingreso, id_semestre, arancel.id_carrera id_carrera, descripcion as carrera FROM arancel left join carrera on (arancel.id_carrera = carrera.id_carrera) WHERE id_semestre = ? and annio_ingreso =? and arancel.id_carrera=?";
     private final String sql_update = "UPDATE arancel SET valor_matricula = ?,valor_arancel = ?,annio_ingreso = ?,id_semestre = ?,id_carrera = ? WHERE id_arancel = ?";
     private static Conexion objConn;
     private ResultSet rs;
@@ -38,7 +38,7 @@ public class DAOArancel implements iCRUD<Arancel> {
             rs = sql.executeQuery();
             while(rs.next())
             {
-                list.add(new Arancel(rs.getInt("id_arancel"),rs.getInt("valor_matricula"),rs.getInt("valor_arancel"),rs.getInt("annio_ingreso"),rs.getInt("id_semestre"),rs.getInt("id_carrera")));
+                list.add(new Arancel(rs.getInt("id_arancel"),rs.getInt("valor_matricula"),rs.getInt("valor_arancel"),rs.getInt("annio_ingreso"),rs.getInt("id_semestre"),rs.getInt("id_carrera"),rs.getString("carrera")));
             }
             return list;
         } catch (SQLException ex) {
@@ -74,7 +74,7 @@ public class DAOArancel implements iCRUD<Arancel> {
             rs = sql.executeQuery();
             if(rs.next())
             {
-                ar = new Arancel(rs.getInt("id_arancel"),rs.getInt("valor_matricula"),rs.getInt("valor_arancel"),rs.getInt("annio_ingreso"),rs.getInt("id_semestre"),rs.getInt("id_carrera"));
+                ar = new Arancel(rs.getInt("id_arancel"),rs.getInt("valor_matricula"),rs.getInt("valor_arancel"),rs.getInt("annio_ingreso"),rs.getInt("id_semestre"),rs.getInt("id_carrera"),rs.getString("carrera"));
             }
             return ar;
         } catch (SQLException ex) {
@@ -94,7 +94,7 @@ public class DAOArancel implements iCRUD<Arancel> {
             rs = sql.executeQuery();
             if(rs.next())
             {
-                ar = new Arancel(rs.getInt("id_arancel"),rs.getInt("valor_matricula"),rs.getInt("valor_arancel"),rs.getInt("annio_ingreso"),rs.getInt("id_semestre"),rs.getInt("id_carrera"));
+                ar = new Arancel(rs.getInt("id_arancel"),rs.getInt("valor_matricula"),rs.getInt("valor_arancel"),rs.getInt("annio_ingreso"),rs.getInt("id_semestre"),rs.getInt("id_carrera"),rs.getString("carrera"));
             }
             return ar;
         } catch (SQLException ex) {
